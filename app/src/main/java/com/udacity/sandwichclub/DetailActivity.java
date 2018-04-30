@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
+
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -45,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -62,7 +65,27 @@ public class DetailActivity extends AppCompatActivity {
         return getString(R.string.detail_error_message);
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+        TextView aka = findViewById(R.id.also_known_tv);
+        aka.setText(listToText(sandwich.getAlsoKnownAs()));
 
+        TextView desc = findViewById(R.id.description_tv);
+        desc.setText(sandwich.getDescription());
+
+        TextView ingr = findViewById(R.id.ingredients_tv);
+        ingr.setText(listToText(sandwich.getIngredients()));
+
+        TextView origin = findViewById(R.id.origin_tv);
+        origin.setText(sandwich.getPlaceOfOrigin());
+    }
+
+    private String listToText(List<String> list) {
+        StringBuilder buff = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            buff.append("   ").append(list.get(i)).append("\n");
+//            if (i < list.size() - 1)
+//                buff.append(", ");
+        }
+        return buff.toString();
     }
 }
