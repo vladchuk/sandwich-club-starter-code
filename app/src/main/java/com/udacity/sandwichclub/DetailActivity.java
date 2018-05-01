@@ -76,16 +76,14 @@ public class DetailActivity extends AppCompatActivity {
         ingr.setText(listToText(sandwich.getIngredients()));
 
         TextView origin = findViewById(R.id.origin_tv);
-        origin.setText(sandwich.getPlaceOfOrigin());
+        origin.setText(sandwich.getPlaceOfOrigin() + "\n");
     }
 
     private String listToText(List<String> list) {
         StringBuilder buff = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            buff.append("   ").append(list.get(i)).append("\n");
-//            if (i < list.size() - 1)
-//                buff.append(", ");
-        }
+        for (int i = 0; i < list.size(); i++)
+            buff.append("\u2022 ").append(list.get(i)).append("\n");
+
         return buff.toString();
     }
 }
